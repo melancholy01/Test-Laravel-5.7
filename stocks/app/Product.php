@@ -14,6 +14,6 @@ class Product extends Model
 		    'picture_path',
 		   
 		  ];
-    protected  $primaryKey = 'id';
+    protected $primaryKey = 'id';
 	protected $table = 'products';
 }

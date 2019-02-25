@@ -86,18 +86,23 @@ class ProductController extends Controller
     }
       if ($request->hasFile('image')) {
 
-            
-           
-            $id = $this->getID();
-            $imageName = $id."_".date('d_m_Y').'.'.$request->image->getClientOriginalExtension();
             $path = public_path('img/products');
-            
-            if($delete_picture != ""){
-                if(File::exists($path."/".$delete_picture)) {
-                    unlink($path."/".$delete_picture);
-                }
-               
+
+            if($product_id != ""){
+              $id = $product_id;
             }
+            else{
+              $id = $this->getID();
+            }
+            
+            $imageName = $id."_".date('d_m_Y').'.'.$request->image->getClientOriginalExtension();
+
+              if($delete_picture != ""){
+                  if(File::exists($path."/".$delete_picture)) {
+                      unlink($path."/".$delete_picture);
+                  }
+                 
+              }
    
             if (!$request->image->move($path, $imageName)) {
               
@@ -286,7 +291,7 @@ class ProductController extends Controller
         if($product->isNotEmpty()){
             $default_picture = asset('img')."/no-img-preview.png"; ;
             foreach($product as $products){
-
+                $array['DT_RowId'] = $products->product_id;
                 $array['created_at'] = '<div class="text-xs-center">'.$products->created_at.'</div>';
                 if($products->picture_path != ""){
                     $array['image'] = '<div class="text-xs-left"><img class="img-thumbnail" src="'.asset('img')."/products/".$products->picture_path.'"  ></div>';   
@@ -305,7 +310,7 @@ class ProductController extends Controller
             }
         }
         else{
-
+             $array['DT_RowId'] = null;
              $array['created_at'] = null;
              $array['image'] = null;
              $array['category'] = null;

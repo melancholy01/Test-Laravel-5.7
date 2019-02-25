@@ -258,6 +258,8 @@ bootbox.confirm({
         }   
     },
     callback: function (conf) {
+      if(conf == true){
+
             $.ajax({
                           type:'ajax',
                           method:'get',
@@ -265,13 +267,13 @@ bootbox.confirm({
                         //  dataType:'json',
                         success:function (result){
                              console.log(result);
-                         /* if(result == 'success'){
+                          if(result == 'success'){
                              bootbox.alert({
-                                message: "Category has been deleted!",
+                                message: "Product has been deleted!",
                                 size: 'small'
                             });
 
-                            table_category.row('#'+id).remove().draw();  
+                            table_product.row('#'+id).remove().draw();  
                           }
                           else{
                               bootbox.alert({
@@ -279,12 +281,16 @@ bootbox.confirm({
                                 size: 'small'
                             });
                           }
-                          */
+                          
+
+
                         },
                         error: function (data, textStatus, errorThrown) {
                           console.log(data);
                         },
                       });
+
+          }
 
                 }
 });
